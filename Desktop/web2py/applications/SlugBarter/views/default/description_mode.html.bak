@@ -1,0 +1,11 @@
+{{extend 'layout.html'}}
+<h3>Description Mode</h3>
+<b>Title:</b>
+{{=reads.name}}
+<br>
+<br>
+<b>Description:</b>
+<p>{{=reads.description}}</p>
+<b>Category:</b>
+{{=reads.services}}
+{{pass}}

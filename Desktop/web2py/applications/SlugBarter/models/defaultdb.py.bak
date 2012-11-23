@@ -1,0 +1,13 @@
+# coding: utf8
+db.define_table(user_info,
+    Field('name', 'string', length =100, default = ''),
+    Field('email', 'string', length= 100, default='', unique = True),
+    Field('user_name', 'string', length = 64, default ='', unique = True),
+    Field('password', 'string', length = 64, default=''),
+    Field('conf_pass','string',length =64,default=''),
+)
+db.user_info.name.requires =[IS_NOT_EMPTY(), IS_NOT_IN_DB(db, 'user_info.name')]
+db.user_info.email.requires =[IS_NOT_EMPTY(), IS_NOT_IN_DB(db, 'user_info.email')]
+db.user_info.user_name.requires =[IS_NOT_EMPTY(), IS_NOT_IN_DB(db, 'user_info.user_name')]
+db.user_info.password.requires =[IS_NOT_EMPTY(), IS_NOT_IN_DB(db, 'user_info.password')]
+db.user_info.conf_pass.requires =[IS_NOT_EMPTY(), IS_NOT_IN_DB(db, 'user_info.conf_pass')]

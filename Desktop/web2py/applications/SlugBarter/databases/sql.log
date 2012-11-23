@@ -1,0 +1,95 @@
+timestamp: 2012-10-24T20:58:26.201000
+CREATE TABLE auth_user(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    first_name CHAR(128),
+    last_name CHAR(128),
+    email CHAR(512),
+    password CHAR(512),
+    registration_key CHAR(512),
+    reset_password_key CHAR(512),
+    registration_id CHAR(512)
+);
+success!
+timestamp: 2012-10-24T20:58:26.209000
+CREATE TABLE auth_group(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    role CHAR(512),
+    description TEXT
+);
+success!
+timestamp: 2012-10-24T20:58:26.216000
+CREATE TABLE auth_membership(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER REFERENCES auth_user(id) ON DELETE CASCADE,
+    group_id INTEGER REFERENCES auth_group(id) ON DELETE CASCADE
+);
+success!
+timestamp: 2012-10-24T20:58:26.242000
+CREATE TABLE auth_permission(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    group_id INTEGER REFERENCES auth_group(id) ON DELETE CASCADE,
+    name CHAR(512),
+    table_name CHAR(512),
+    record_id INTEGER
+);
+success!
+timestamp: 2012-10-24T20:58:26.249000
+CREATE TABLE auth_event(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    time_stamp TIMESTAMP,
+    client_ip CHAR(512),
+    user_id INTEGER REFERENCES auth_user(id) ON DELETE CASCADE,
+    origin CHAR(512),
+    description TEXT
+);
+success!
+timestamp: 2012-10-24T20:58:26.255000
+CREATE TABLE auth_cas(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER REFERENCES auth_user(id) ON DELETE CASCADE,
+    created_on TIMESTAMP,
+    service CHAR(512),
+    ticket CHAR(512),
+    renew CHAR(1)
+);
+success!
+timestamp: 2012-11-01T12:46:04.038000
+CREATE TABLE login_info(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_name CHAR(64) UNIQUE,
+    password CHAR(64)
+);
+success!
+timestamp: 2012-11-06T12:47:05.905000
+CREATE TABLE user(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    firstName CHAR(512),
+    lastName CHAR(512),
+    username CHAR(512),
+    password CHAR(512),
+    email CHAR(512),
+    dateCreated TIMESTAMP,
+    birthday DATE
+);
+success!
+timestamp: 2012-11-11T11:17:28.645000
+ALTER TABLE auth_user ADD username CHAR(512);
+timestamp: 2012-11-11T11:17:28.686000
+ALTER TABLE auth_user ADD datecreated TIMESTAMP;
+timestamp: 2012-11-11T11:17:28.693000
+ALTER TABLE auth_user ADD birthday DATE;
+timestamp: 2012-11-11T17:34:57.394000
+CREATE TABLE listing(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title CHAR(512),
+    description TEXT
+);
+success!
+timestamp: 2012-11-11T18:34:55.333000
+ALTER TABLE listing ADD owner INTEGER REFERENCES auth_user(id) ON DELETE CASCADE;
+timestamp: 2012-11-11T18:34:55.341000
+ALTER TABLE listing ADD services CHAR(512);
+timestamp: 2012-11-11T18:41:18.643000
+ALTER TABLE listing ADD user INTEGER REFERENCES auth_user(id) ON DELETE CASCADE;
+timestamp: 2012-11-11T18:46:55.582000
+ALTER TABLE listing ADD listing_date_created TIMESTAMP;

@@ -1,0 +1,11 @@
+{{extend 'layout.html'}}
+<h3>View my listings</h3>
+
+<u1>
+{{for element in lists:}}
+<li>
+{{=A(element.title,_href=URL('view', args=[element.id]))}}
+</li>
+
+{{pass}}
+</u1>

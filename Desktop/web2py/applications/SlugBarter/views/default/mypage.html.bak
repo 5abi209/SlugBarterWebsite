@@ -1,0 +1,8 @@
+{{extend 'layout.html'}}
+<h3>Welcome to your page {{=username or "anonymous"}}</h3>
+
+<br><a href='postlisting.html'>Post a listing</a><br>
+<br>View my listings<br>
+<br>My Interests<br>
+<br>My Matches<br>
+<br>Search for listings by categories<br>

@@ -1,0 +1,19 @@
+# coding: utf8
+db = DAL('sqlite://storage.sqlite')
+from gluon.tools import Auth
+from datetime import datetime
+auth = Auth(db)
+auth.settings.extra_fields['auth_user']= [
+  Field('username', 'string', requires = IS_NOT_EMPTY(error_message = 'Cannot be empty')),
+  Field('dateCreated', 'datetime', default=datetime.utcnow(), readable=False, writable =False )
+  ]
+auth.settings.login_next=URL('mypage') 
+auth.define_tables()
+
+db.define_table('listing',
+    Field('user', db.auth_user, default = auth.user_id, readable = False, writable =False, requires = IS_NOT_EMPTY()),
+    Field('title','string', length = 128, label = 'Title', requires=IS_NOT_EMPTY(error_message='Must not be empty')),
+    Field('description','text', label = 'Description', requires = IS_NOT_EMPTY(error_message='Must not be empty')),
+    Field('services',label='Services', requires = IS_IN_SET(['Repair Services', 'Entertainment','Books','VideoGames', 'Handyman Services']))
+    Field('listing_date_created','datetime', default = datetime.utcnow(), readable = False, writable = False, requires =IS_NOT_EMPTY())
+)
